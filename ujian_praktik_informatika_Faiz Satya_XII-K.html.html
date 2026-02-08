@@ -1,0 +1,2124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Peminjaman Barang - SMAN 1 Tarakan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e3c72;
+            --secondary: #2a5298;
+            --accent: #ff6b35;
+            --light: #f5f8fa;
+            --dark: #333;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f5ff;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 0;
+            background-image: linear-gradient(to bottom, #e6f0ff, #f0f7ff);
+        }
+        
+        .top-header {
+            background-color: #f8f9fa;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+            font-size: 0.85rem;
+        }
+        
+        .top-header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .top-header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .top-header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .phone-number {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .main-header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 0;
+            position: relative;
+        }
+        
+        .main-header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            width: 70px;
+            height: 70px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .school-name h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+        
+        .school-name p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            max-width: 400px;
+        }
+        
+        .school-motto {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #d1e3f0;
+        }
+        
+        .app-header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--accent);
+        }
+        
+        .app-header h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .app-header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .app-info {
+            display: flex;
+            justify-content: space-between;
+            background-color: #e8f4ff;
+            padding: 12px 25px;
+            border-bottom: 1px solid #d1e3f0;
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+        }
+        
+        .app-info span {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        
+        .left-panel {
+            flex: 1;
+            min-width: 350px;
+            padding: 20px;
+            border-right: 1px solid #eee;
+        }
+        
+        .middle-panel {
+            flex: 1;
+            min-width: 350px;
+            padding: 20px;
+            border-right: 1px solid #eee;
+        }
+        
+        .right-panel {
+            flex: 1;
+            min-width: 350px;
+            padding: 20px;
+        }
+        
+        .section-title {
+            color: var(--primary);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--accent);
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            color: var(--accent);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-group input, 
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        .form-group input:focus, 
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .item-category {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .category-option {
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        
+        .category-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-color: var(--secondary);
+        }
+        
+        .category-option.selected {
+            background-color: #e8f1ff;
+            border-color: var(--secondary);
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .category-option i {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            display: block;
+            color: var(--secondary);
+        }
+        
+        .items-container {
+            margin-top: 20px;
+        }
+        
+        .item-entry {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent);
+            position: relative;
+        }
+        
+        .remove-item {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .add-item-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .add-item-btn:hover {
+            background-color: var(--primary);
+        }
+        
+        .btn {
+            padding: 14px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .btn-warning {
+            background-color: var(--warning);
+            color: var(--dark);
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-section {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .filter-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-controls select {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        
+        .loan-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .loan-table th {
+            background-color: var(--primary);
+            color: white;
+            text-align: left;
+            padding: 15px;
+            font-weight: 600;
+        }
+        
+        .loan-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .loan-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-dipinjam {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-dikembalikan {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-terlambat {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .action-icons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-icons i {
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .fa-check-circle {
+            color: var(--success);
+        }
+        
+        .fa-check-circle:hover {
+            background-color: rgba(40, 167, 69, 0.1);
+        }
+        
+        .fa-exclamation-circle {
+            color: var(--warning);
+        }
+        
+        .fa-exclamation-circle:hover {
+            background-color: rgba(255, 193, 7, 0.1);
+        }
+        
+        .fa-trash-alt {
+            color: var(--danger);
+        }
+        
+        .fa-trash-alt:hover {
+            background-color: rgba(220, 53, 69, 0.1);
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #e8f1ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .stat-info h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .stat-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .modal-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+        
+        .current-time {
+            text-align: center;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .item-list {
+            margin-top: 10px;
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        
+        .item-list-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .stock-info {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .stock-available {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .stock-low {
+            color: var(--warning);
+            font-weight: bold;
+        }
+        
+        .stock-empty {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .category-detail {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .category-item:last-child {
+            border-bottom: none;
+        }
+        
+        .class-ranking {
+            margin-top: 20px;
+        }
+        
+        .class-rank-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .rank-number {
+            background-color: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .class-name {
+            flex: 1;
+            margin-left: 15px;
+            font-weight: 600;
+        }
+        
+        .loan-count {
+            background-color: #e8f4ff;
+            color: var(--primary);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .extracurricular-group {
+            margin-bottom: 15px;
+        }
+        
+        .extracurricular-item {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        @media (max-width: 1200px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .left-panel,
+            .middle-panel,
+            .right-panel {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .left-panel:last-child,
+            .middle-panel:last-child,
+            .right-panel:last-child {
+                border-bottom: none;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .main-header-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .school-motto {
+                margin-top: 10px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .app-header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .app-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+        
+        .footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 30px 0;
+            margin-top: 40px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .footer-logo img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .footer-address {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-header">
+        <div class="top-header-container">
+            <div class="top-header-left">
+                <span>Sistem Peminjaman Barang Sekolah</span>
+            </div>
+            <div class="top-header-right">
+                <span class="phone-number">(0551) 21217</span>
+                <span id="header-date-time">Sabtu, 25 Januari 2025 14:30:00</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-header">
+        <div class="main-header-container">
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="logo.jpeg" alt="Logo SMASA" id="school-logo">
+                </div>
+                <div class="school-name">
+                    <h1>SMAN 1 TARAKAN</h1>
+                    <p>Jl. Ki Hadjar Dewantara Kel. Karang Balik Kec. Tarakan Barat<br>Kota Tarakan Prov. Kalimantan Utara</p>
+                </div>
+            </div>
+            <div class="school-motto">
+                -BERSATU-
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="app-header">
+            <h2><i class="fas fa-boxes"></i> Sistem Peminjaman Barang Sekolah</h2>
+            <p>SMAN 1 Tarakan - Sistem digital untuk peminjaman dan pengembalian barang inventaris sekolah</p>
+        </div>
+        
+        <div class="app-info">
+            <div><i class="fas fa-user"></i> Pengguna: <span id="current-user">Admin Tata Usaha SMAN 1 Tarakan</span></div>
+            <div><i class="fas fa-calendar-alt"></i> Tanggal Sistem: <span id="current-date">25 Januari 2025</span></div>
+            <div><i class="fas fa-database"></i> Total Peminjaman: <span id="total-loans">0</span></div>
+        </div>
+        
+        <div class="content">
+            <div class="left-panel">
+                <h2 class="section-title"><i class="fas fa-clipboard-list"></i> Form Peminjaman Barang</h2>
+                
+                <form id="loanForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="borrowerName"><i class="fas fa-user"></i> Nama Peminjam</label>
+                            <input type="text" id="borrowerName" placeholder="Masukkan nama lengkap" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="borrowerClass"><i class="fas fa-graduation-cap"></i> Kelas</label>
+                            <select id="borrowerClass" required>
+                                <option value="">Pilih Kelas</option>
+                                <option value="X-A">X-A</option>
+                                <option value="X-B">X-B</option>
+                                <option value="X-C">X-C</option>
+                                <option value="X-D">X-D</option>
+                                <option value="X-E">X-E</option>
+                                <option value="X-F">X-F</option>
+                                <option value="X-G">X-G</option>
+                                <option value="X-H">X-H</option>
+                                <option value="X-I">X-I</option>
+                                <option value="X-J">X-J</option>
+                                <option value="X-K">X-K</option>
+                                <option value="X-L">X-L</option>
+                                <option value="XI-A">XI-A</option>
+                                <option value="XI-B">XI-B</option>
+                                <option value="XI-C">XI-C</option>
+                                <option value="XI-D">XI-D</option>
+                                <option value="XI-E">XI-E</option>
+                                <option value="XI-F">XI-F</option>
+                                <option value="XI-G">XI-G</option>
+                                <option value="XI-H">XI-H</option>
+                                <option value="XI-I">XI-I</option>
+                                <option value="XI-J">XI-J</option>
+                                <option value="XI-K">XI-K</option>
+                                <option value="XI-L">XI-L</option>
+                                <option value="XII-A">XII-A</option>
+                                <option value="XII-B">XII-B</option>
+                                <option value="XII-C">XII-C</option>
+                                <option value="XII-D">XII-D</option>
+                                <option value="XII-E">XII-E</option>
+                                <option value="XII-F">XII-F</option>
+                                <option value="XII-G">XII-G</option>
+                                <option value="XII-H">XII-H</option>
+                                <option value="XII-I">XII-I</option>
+                                <option value="XII-J">XII-J</option>
+                                <option value="XII-K">XII-K</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="extracurricular"><i class="fas fa-running"></i> Ekstrakurikuler (Opsional)</label>
+                        <select id="extracurricular">
+                            <option value="">Tidak ada / Bukan untuk eskul</option>
+                            <option value="Futsal">Futsal</option>
+                            <option value="Basket">Basket</option>
+                            <option value="Voli">Voli</option>
+                            <option value="Paskibra">Paskibra</option>
+                            <option value="PMR">PMR</option>
+                            <option value="Pramuka">Pramuka</option>
+                            <option value="Seni Musik">Seni Musik</option>
+                            <option value="Seni Tari">Seni Tari</option>
+                            <option value="Seni Rupa">Seni Rupa</option>
+                            <option value="KIR">KIR</option>
+                            <option value="Debat">Debat</option>
+                            <option value="Jurnalistik">Jurnalistik</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-tags"></i> Kategori Barang</label>
+                        <div class="item-category">
+                            <div class="category-option" data-category="elektronik">
+                                <i class="fas fa-laptop"></i>
+                                <div>Elektronik</div>
+                            </div>
+                            <div class="category-option" data-category="olahraga">
+                                <i class="fas fa-futbol"></i>
+                                <div>Olahraga</div>
+                            </div>
+                            <div class="category-option" data-category="kesenian">
+                                <i class="fas fa-paint-brush"></i>
+                                <div>Kesenian</div>
+                            </div>
+                            <div class="category-option" data-category="laboratorium">
+                                <i class="fas fa-flask"></i>
+                                <div>Laboratorium</div>
+                            </div>
+                            <div class="category-option" data-category="lainnya">
+                                <i class="fas fa-ellipsis-h"></i>
+                                <div>Lainnya</div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="itemCategory" value="elektronik" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div id="categoryDetail"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-boxes"></i> Daftar Barang</label>
+                        <div class="items-container" id="itemsContainer"></div>
+                        <button type="button" class="add-item-btn" id="addItemBtn">
+                            <i class="fas fa-plus-circle"></i> Tambah Barang
+                        </button>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="loanDate"><i class="fas fa-calendar-plus"></i> Tanggal Pinjam</label>
+                            <input type="date" id="loanDate" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="returnDate"><i class="fas fa-calendar-minus"></i> Tanggal Kembali</label>
+                            <input type="date" id="returnDate" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loanPurpose"><i class="fas fa-sticky-note"></i> Tujuan Peminjaman</label>
+                        <textarea id="loanPurpose" rows="3" placeholder="Jelaskan tujuan peminjaman barang" required></textarea>
+                    </div>
+<div class="action-buttons">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Ajukan Peminjaman
+                        </button>
+                        <button type="button" id="resetBtn" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i> Reset Form
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="middle-panel">
+                <h2 class="section-title"><i class="fas fa-warehouse"></i> Stok Barang Tersedia</h2>
+                
+                <div class="category-detail" id="stockContainer">
+                    <!-- Stok barang akan ditampilkan di sini -->
+                </div>
+                
+                <h2 class="section-title" style="margin-top: 30px;"><i class="fas fa-chart-bar"></i> Ranking Kelas Peminjam</h2>
+                
+                <div class="class-ranking" id="classRanking">
+                    <!-- Ranking kelas akan ditampilkan di sini -->
+                </div>
+                
+                <h2 class="section-title" style="margin-top: 30px;"><i class="fas fa-running"></i> Ekstrakurikuler Peminjam</h2>
+                
+                <div class="extracurricular-group" id="extracurricularStats">
+                    <!-- Statistik eskul akan ditampilkan di sini -->
+                </div>
+                
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="active-loans">0</h3>
+                            <p>Sedang Dipinjam</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="returned-loans">0</h3>
+                            <p>Telah Dikembalikan</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="late-loans">0</h3>
+                            <p>Terlambat</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-panel">
+                <h2 class="section-title"><i class="fas fa-history"></i> Riwayat Peminjaman</h2>
+                
+                <div class="filter-section">
+                    <div class="filter-controls">
+                        <select id="filterStatus">
+                            <option value="semua">Semua Status</option>
+                            <option value="dipinjam">Sedang Dipinjam</option>
+                            <option value="dikembalikan">Telah Dikembalikan</option>
+                            <option value="terlambat">Terlambat</option>
+                        </select>
+                        
+                        <select id="filterClass">
+                            <option value="semua">Semua Kelas</option>
+                            <option value="X-A">X-A</option>
+                            <option value="X-B">X-B</option>
+                            <option value="X-C">X-C</option>
+                            <option value="X-D">X-D</option>
+                            <option value="X-E">X-E</option>
+                            <option value="X-F">X-F</option>
+                            <option value="X-G">X-G</option>
+                            <option value="X-H">X-H</option>
+                            <option value="X-I">X-I</option>
+                            <option value="X-J">X-J</option>
+                            <option value="X-K">X-K</option>
+                            <option value="X-L">X-L</option>
+                            <option value="XI-A">XI-A</option>
+                            <option value="XI-B">XI-B</option>
+                            <option value="XI-C">XI-C</option>
+                            <option value="XI-D">XI-D</option>
+                            <option value="XI-E">XI-E</option>
+                            <option value="XI-F">XI-F</option>
+                            <option value="XI-G">XI-G</option>
+                            <option value="XI-H">XI-H</option>
+                            <option value="XI-I">XI-I</option>
+                            <option value="XI-J">XI-J</option>
+                            <option value="XI-K">XI-K</option>
+                            <option value="XI-L">XI-L</option>
+                            <option value="XII-A">XII-A</option>
+                            <option value="XII-B">XII-B</option>
+                            <option value="XII-C">XII-C</option>
+                            <option value="XII-D">XII-D</option>
+                            <option value="XII-E">XII-E</option>
+                            <option value="XII-F">XII-F</option>
+                            <option value="XII-G">XII-G</option>
+                            <option value="XII-H">XII-H</option>
+                            <option value="XII-I">XII-I</option>
+                            <option value="XII-J">XII-J</option>
+                            <option value="XII-K">XII-K</option>
+                        </select>
+                        
+                        <button id="exportBtn" class="btn btn-success">
+                            <i class="fas fa-file-export"></i> Export Data
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="loan-table" id="loanTable">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Peminjam</th>
+                                <th>Barang</th>
+                                <th>Tanggal Pinjam</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="loanTableBody"></tbody>
+                    </table>
+                    
+                    <div id="emptyState" class="empty-state">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h3>Belum Ada Data Peminjaman</h3>
+                        <p>Mulai dengan mengajukan peminjaman barang menggunakan form di sebelah kiri</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="current-time">
+            <i class="fas fa-clock"></i> Waktu Sistem: <span id="system-time">--:--:--</span>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="logo.jpeg" alt="Logo SMASA">
+            </div>
+            <h3>SMAN 1 TARAKAN</h3>
+            <div class="footer-address">
+                Jl. Ki Hadjar Dewantara Kel. Karang Balik Kec. Tarakan Barat<br>
+                Kota Tarakan Prov. Kalimantan Utara<br>
+                Telepon: (0551) 21217
+            </div>
+            <div class="copyright">
+                &copy; 2026 SMAN 1 Tarakan. Sistem Peminjaman Barang Sekolah.
+            </div>
+        </div>
+    </div>
+    
+    <div id="returnModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-close">&times;</div>
+            <h3 class="modal-title"><i class="fas fa-check-circle"></i> Konfirmasi Pengembalian</h3>
+            <p>Apakah Anda yakin ingin menandai barang ini sebagai dikembalikan?</p>
+            <div id="modalDetails"></div>
+            <div class="modal-buttons">
+                <button id="confirmReturnBtn" class="btn btn-success">Ya, Kembalikan</button>
+                <button id="cancelReturnBtn" class="btn btn-secondary">Batal</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-close">&times;</div>
+            <h3 class="modal-title"><i class="fas fa-exclamation-triangle"></i> Konfirmasi Penghapusan</h3>
+            <p>Apakah Anda yakin ingin menghapus data peminjaman ini?</p>
+            <div id="deleteModalDetails"></div>
+            <div class="modal-buttons">
+                <button id="confirmDeleteBtn" class="btn btn-danger">Ya, Hapus</button>
+                <button id="cancelDeleteBtn" class="btn btn-secondary">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DATA STOK BARANG
+        const inventory = {
+            elektronik: [
+                { name: "Proyektor LCD", total: 5, available: 5 },
+                { name: "Laptop", total: 10, available: 8 },
+                { name: "Speaker", total: 8, available: 6 },
+                { name: "Microphone", total: 6, available: 4 },
+                { name: "Kabel HDMI", total: 15, available: 12 },
+                { name: "Kabel VGA", total: 10, available: 8 },
+                { name: "Layar Proyektor", total: 3, available: 2 }
+            ],
+            olahraga: [
+                { name: "Bola Basket", total: 10, available: 7 },
+                { name: "Bola Voli", total: 8, available: 5 },
+                { name: "Bola Futsal", total: 12, available: 9 },
+                { name: "Jaring Voli", total: 4, available: 3 },
+                { name: "Jaring Badminton", total: 6, available: 4 },
+                { name: "Raket Badminton", total: 15, available: 10 },
+                { name: "Tiang Badminton", total: 4, available: 3 },
+                { name: "Pluit", total: 10, available: 8 }
+            ],
+            kesenian: [
+                { name: "Gitar", total: 8, available: 5 },
+                { name: "Keyboard", total: 3, available: 2 },
+                { name: "Drum", total: 2, available: 1 },
+                { name: "Alat Lukis", total: 15, available: 10 },
+                { name: "Kanvas", total: 20, available: 15 },
+                { name: "Kostum Tari", total: 25, available: 18 },
+                { name: "Alat Musik Tradisional", total: 12, available: 8 }
+            ],
+            laboratorium: [
+                { name: "Mikroskop", total: 15, available: 10 },
+                { name: "Tabung Reaksi", total: 50, available: 40 },
+                { name: "Gelas Ukur", total: 20, available: 15 },
+                { name: "Bunsen", total: 10, available: 7 },
+                { name: "Preparat", total: 100, available: 85 },
+                { name: "Bahan Kimia", total: 30, available: 25 },
+                { name: "Alat Bedah", total: 8, available: 6 }
+            ],
+            lainnya: [
+                { name: "Kursi Plastik", total: 50, available: 35 },
+                { name: "Meja", total: 20, available: 15 },
+                { name: "Papan Tulis", total: 5, available: 3 },
+                { name: "Sound System", total: 3, available: 2 },
+                { name: "Tenda", total: 4, available: 3 }
+            ]
+        };
+
+        let loans = [];
+        let itemCounter = 1;
+        let currentLoanId = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+            setupEventListeners();
+            addInitialItem();
+            updateStockDisplay();
+            updateLoanTable();
+            updateStats();
+            updateClassRanking();
+            updateExtracurricularStats();
+            updateDateTime();
+            setRealTimeClock();
+        });
+
+        function initializeApp() {
+            const today = new Date();
+            const tomorrow = new Date();
+            tomorrow.setDate(today.getDate() + 1);
+            
+            const todayStr = formatDateForInput(today);
+            const tomorrowStr = formatDateForInput(tomorrow);
+            
+            document.getElementById('loanDate').value = todayStr;
+            document.getElementById('returnDate').value = tomorrowStr;
+            
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = today.toLocaleDateString('id-ID', options);
+            
+            setSelectedCategory('elektronik');
+            updateCategoryDetail('elektronik');
+            
+            addSampleData();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('loanForm').addEventListener('submit', handleFormSubmit);
+            document.getElementById('resetBtn').addEventListener('click', resetForm);
+            document.getElementById('filterStatus').addEventListener('change', updateLoanTable);
+            document.getElementById('filterClass').addEventListener('change', updateLoanTable);
+            document.getElementById('exportBtn').addEventListener('click', exportData);
+            
+            const categoryOptions = document.querySelectorAll('.category-option');
+            categoryOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    setSelectedCategory(category);
+                    updateCategoryDetail(category);
+                });
+            });
+            
+            document.getElementById('addItemBtn').addEventListener('click', addItem);
+            
+            document.querySelectorAll('.modal-close').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                });
+            });
+            
+            document.getElementById('cancelReturnBtn').addEventListener('click', function() {
+                document.getElementById('returnModal').style.display = 'none';
+            });
+            
+            document.getElementById('cancelDeleteBtn').addEventListener('click', function() {
+                document.getElementById('deleteModal').style.display = 'none';
+            });
+            
+            document.getElementById('confirmReturnBtn').addEventListener('click', confirmReturn);
+            document.getElementById('confirmDeleteBtn').addEventListener('click', confirmDelete);
+        }
+
+        function updateCategoryDetail(category) {
+            const categoryDetail = document.getElementById('categoryDetail');
+            const items = inventory[category] || [];
+            
+            let html = '<div class="category-detail">';
+            html += '<h4>Barang yang tersedia:</h4>';
+            
+            if (items.length === 0) {
+                html += '<p>Tidak ada barang dalam kategori ini.</p>';
+            } else {
+                items.forEach(item => {
+                    let stockClass = 'stock-available';
+                    if (item.available === 0) {
+                        stockClass = 'stock-empty';
+                    } else if (item.available < item.total * 0.3) {
+                        stockClass = 'stock-low';
+                    }
+                    
+                    html += `
+                        <div class="category-item">
+                            <span>${item.name}</span>
+                            <span class="${stockClass}">${item.available} / ${item.total}</span>
+                        </div>
+                    `;
+                });
+            }
+            
+            html += '</div>';
+            categoryDetail.innerHTML = html;
+        }
+
+        function updateStockDisplay() {
+            const stockContainer = document.getElementById('stockContainer');
+            let html = '';
+            
+            for (const [category, items] of Object.entries(inventory)) {
+                html += `<h4>${getCategoryName(category)}</h4>`;
+                items.forEach(item => {
+                    let stockClass = 'stock-available';
+                    if (item.available === 0) {
+                        stockClass = 'stock-empty';
+                    } else if (item.available < item.total * 0.3) {
+                        stockClass = 'stock-low';
+                    }
+                    
+                    html += `
+                        <div class="category-item">
+                            <span>${item.name}</span>
+                            <span class="${stockClass}">${item.available} / ${item.total}</span>
+                        </div>
+                    `;
+                });
+            }
+            
+            stockContainer.innerHTML = html;
+        }
+
+        function updateStock(itemName, quantity, operation = 'borrow') {
+            // Cari item di semua kategori
+            for (const [category, items] of Object.entries(inventory)) {
+                const item = items.find(i => i.name === itemName);
+                if (item) {
+                    if (operation === 'borrow') {
+                        if (item.available >= quantity) {
+                            item.available -= quantity;
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else if (operation === 'return') {
+                        item.available += quantity;
+                        if (item.available > item.total) {
+                            item.available = item.total;
+                        }
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        function checkStockAvailability(itemName, quantity) {
+            for (const [category, items] of Object.entries(inventory)) {
+                const item = items.find(i => i.name === itemName);
+                if (item) {
+                    return item.available >= quantity;
+                }
+            }
+            return false;
+        }
+
+        function addInitialItem() {
+            const itemsContainer = document.getElementById('itemsContainer');
+            itemsContainer.innerHTML = '';
+            itemCounter = 1;
+            
+            const itemHTML = `
+                <div class="item-entry" id="item-${itemCounter}">
+                    <button type="button" class="remove-item" onclick="removeItem(${itemCounter})" ${itemCounter === 1 ? 'style="display:none;"' : ''}>
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nama Barang</label>
+                            <select class="item-name" required>
+                                <option value="">Pilih Barang</option>
+                                ${getAllItemsOptions()}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Jumlah</label>
+                            <input type="number" class="item-quantity" min="1" value="1" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Keterangan (opsional)</label>
+                        <input type="text" class="item-desc" placeholder="Contoh: Kondisi khusus">
+                    </div>
+                </div>
+            `;
+            
+            itemsContainer.innerHTML = itemHTML;
+            itemCounter++;
+        }
+
+        function getAllItemsOptions() {
+            let options = '';
+            for (const [category, items] of Object.entries(inventory)) {
+                items.forEach(item => {
+                    options += `<option value="${item.name}">${item.name}</option>`;
+                });
+            }
+            return options;
+        }
+
+        function addItem() {
+            const itemsContainer = document.getElementById('itemsContainer');
+            
+            const itemHTML = `
+                <div class="item-entry" id="item-${itemCounter}">
+                    <button type="button" class="remove-item" onclick="removeItem(${itemCounter})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nama Barang</label>
+                            <select class="item-name" required>
+                                <option value="">Pilih Barang</option>
+                                ${getAllItemsOptions()}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Jumlah</label>
+                            <input type="number" class="item-quantity" min="1" value="1" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Keterangan (opsional)</label>
+                        <input type="text" class="item-desc" placeholder="Contoh: Kondisi khusus">
+                    </div>
+                </div>
+            `;
+            
+            itemsContainer.insertAdjacentHTML('beforeend', itemHTML);
+            itemCounter++;
+        }
+
+        function removeItem(id) {
+            const itemElement = document.getElementById(`item-${id}`);
+            if (itemElement) {
+                itemElement.remove();
+                
+                const items = document.querySelectorAll('.item-entry');
+                if (items.length === 0) {
+                    addInitialItem();
+                }
+            }
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            // Validasi tanggal
+            const loanDate = new Date(document.getElementById('loanDate').value);
+            const returnDate = new Date(document.getElementById('returnDate').value);
+            const today = new Date();
+            
+            if (returnDate < loanDate) {
+                alert('Tanggal kembali tidak boleh lebih awal dari tanggal pinjam!');
+                return;
+            }
+            
+            // Kumpulkan data barang
+            const items = [];
+            const itemEntries = document.querySelectorAll('.item-entry');
+            let stockError = false;
+            let errorMessage = '';
+            
+            // Validasi stok sebelum memproses
+            itemEntries.forEach(entry => {
+                const itemName = entry.querySelector('.item-name').value;
+                const itemQuantity = parseInt(entry.querySelector('.item-quantity').value);
+                
+                if (itemName && itemQuantity) {
+                    if (!checkStockAvailability(itemName, itemQuantity)) {
+                        stockError = true;
+                        const availableStock = getAvailableStock(itemName);
+                        errorMessage += `Stok ${itemName} tidak mencukupi. Tersedia: ${availableStock}, Dibutuhkan: ${itemQuantity}\n`;
+                    }
+                }
+            });
+            
+            if (stockError) {
+                alert('Stok tidak mencukupi:\n' + errorMessage);
+                return;
+            }
+            
+            // Kurangi stok
+            itemEntries.forEach(entry => {
+                const itemName = entry.querySelector('.item-name').value;
+                const itemQuantity = parseInt(entry.querySelector('.item-quantity').value);
+                const itemDesc = entry.querySelector('.item-desc').value;
+                
+                if (itemName && itemQuantity) {
+                    // Kurangi stok
+                    updateStock(itemName, itemQuantity, 'borrow');
+                    
+                    items.push({
+                        name: itemName,
+                        quantity: itemQuantity,
+                        description: itemDesc
+                    });
+                }
+            });
+            
+            if (items.length === 0) {
+                alert('Harap tambahkan minimal satu barang!');
+                return;
+            }
+            
+            // Generate ID baru
+            const newId = loans.length > 0 ? Math.max(...loans.map(loan => loan.id)) + 1 : 1;
+            
+            // Tentukan status berdasarkan tanggal
+            let status = calculateLoanStatusBasedOnDates(loanDate, returnDate, today);
+            
+            // Buat objek peminjaman baru
+            const newLoan = {
+                id: newId,
+                borrowerName: document.getElementById('borrowerName').value,
+                borrowerClass: document.getElementById('borrowerClass').value,
+                extracurricular: document.getElementById('extracurricular').value,
+                items: items,
+                itemCategory: document.getElementById('itemCategory').value,
+                loanDate: document.getElementById('loanDate').value,
+                returnDate: document.getElementById('returnDate').value,
+                returnActualDate: "",
+                loanPurpose: document.getElementById('loanPurpose').value,
+                status: status
+            };
+            
+            // Tambahkan ke array
+            loans.push(newLoan);
+            
+            // Update tampilan
+            updateStockDisplay();
+            updateLoanTable();
+            updateStats();
+            updateClassRanking();
+            updateExtracurricularStats();
+            
+            // Reset form
+            resetForm();
+            
+            // Tampilkan pesan sukses
+            alert(`Peminjaman berhasil diajukan! ID Peminjaman: ${newId}\nStatus: ${getStatusText(status)}`);
+        }
+
+        function getAvailableStock(itemName) {
+            for (const [category, items] of Object.entries(inventory)) {
+                const item = items.find(i => i.name === itemName);
+                if (item) {
+                    return item.available;
+                }
+            }
+            return 0;
+        }
+
+        function resetForm() {
+            document.getElementById('loanForm').reset();
+            
+            const today = new Date();
+            const tomorrow = new Date();
+            tomorrow.setDate(today.getDate() + 1);
+            
+            const todayStr = formatDateForInput(today);
+            const tomorrowStr = formatDateForInput(tomorrow);
+            
+            document.getElementById('loanDate').value = todayStr;
+            document.getElementById('returnDate').value = tomorrowStr;
+            
+            setSelectedCategory('elektronik');
+            updateCategoryDetail('elektronik');
+            
+            addInitialItem();
+        }
+
+        function setSelectedCategory(category) {
+            document.querySelectorAll('.category-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            document.querySelector(`.category-option[data-category="${category}"]`).classList.add('selected');
+            document.getElementById('itemCategory').value = category;
+        }
+
+        function calculateLoanStatusBasedOnDates(loanDate, returnDate, today) {
+            const todayDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            const loanDateOnly = new Date(loanDate.getFullYear(), loanDate.getMonth(), loanDate.getDate());
+            const returnDateOnly = new Date(returnDate.getFullYear(), returnDate.getMonth(), returnDate.getDate());
+            
+            if (loanDateOnly > todayDateOnly) {
+                return "dipinjam";
+            }
+            else if (returnDateOnly < todayDateOnly) {
+                return "terlambat";
+            }
+            else if (loanDateOnly <= todayDateOnly && todayDateOnly <= returnDateOnly) {
+                return "dipinjam";
+            }
+            
+            return "dipinjam";
+        }
+
+        function calculateLoanStatus(loan) {
+            if (loan.status === 'dikembalikan' || loan.returnActualDate) {
+                return 'dikembalikan';
+            }
+            
+            const today = new Date();
+            const loanDate = new Date(loan.loanDate);
+            const returnDate = new Date(loan.returnDate);
+            
+            const todayDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            const loanDateOnly = new Date(loanDate.getFullYear(), loanDate.getMonth(), loanDate.getDate());
+            const returnDateOnly = new Date(returnDate.getFullYear(), returnDate.getMonth(), returnDate.getDate());
+            
+            if (returnDateOnly < todayDateOnly) {
+                return 'terlambat';
+            }
+            else if (loanDateOnly <= todayDateOnly && todayDateOnly <= returnDateOnly) {
+                return 'dipinjam';
+            }
+            else if (loanDateOnly > todayDateOnly) {
+                return 'dipinjam';
+            }
+            
+            return loan.status;
+        }
+
+        function updateLoanTable() {
+            const tableBody = document.getElementById('loanTableBody');
+            const emptyState = document.getElementById('emptyState');
+            const filterStatus = document.getElementById('filterStatus').value;
+            const filterClass = document.getElementById('filterClass').value;
+            
+            let filteredLoans = loans;
+            
+            if (filterStatus !== 'semua') {
+                filteredLoans = filteredLoans.filter(loan => calculateLoanStatus(loan) === filterStatus);
+            }
+            
+            if (filterClass !== 'semua') {
+                filteredLoans = filteredLoans.filter(loan => loan.borrowerClass === filterClass);
+            }
+            
+            document.getElementById('total-loans').textContent = loans.length;
+            
+            tableBody.innerHTML = '';
+            
+            if (filteredLoans.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            filteredLoans.forEach((loan, index) => {
+                const row = document.createElement('tr');
+                
+                const loanDateFormatted = formatDate(loan.loanDate);
+                const returnDateFormatted = formatDate(loan.returnDate);
+                
+                let itemsText = '';
+                loan.items.forEach((item, i) => {
+                    itemsText += `${i+1}. ${item.name} (${item.quantity})`;
+                    if (item.description) {
+                        itemsText += ` - ${item.description}`;
+                    }
+                    itemsText += '<br>';
+                });
+                
+                if (loan.extracurricular) {
+                    itemsText += `<small><i class="fas fa-running"></i> Untuk: ${loan.extracurricular}</small><br>`;
+                }
+                
+                const status = calculateLoanStatus(loan);
+                let statusBadge = '';
+                
+                if (status === 'dipinjam') {
+                    statusBadge = '<span class="status-badge status-dipinjam">Sedang Dipinjam</span>';
+                } else if (status === 'dikembalikan') {
+                    statusBadge = '<span class="status-badge status-dikembalikan">Telah Dikembalikan</span>';
+                } else if (status === 'terlambat') {
+                    statusBadge = '<span class="status-badge status-terlambat">Terlambat</span>';
+                }
+                
+                let actionButtons = '';
+                if (status === 'dipinjam' || status === 'terlambat') {
+                    actionButtons = `
+                        <div class="action-icons">
+                            <i class="fas fa-check-circle" title="Tandai Dikembalikan" onclick="showReturnModal(${loan.id})"></i>
+                            <i class="fas fa-trash-alt" title="Hapus Data" onclick="showDeleteModal(${loan.id})"></i>
+                        </div>
+                    `;
+                } else {
+                    actionButtons = `
+                        <div class="action-icons">
+                            <i class="fas fa-trash-alt" title="Hapus Data" onclick="showDeleteModal(${loan.id})"></i>
+                        </div>
+                    `;
+                }
+                
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>
+                        <strong>${loan.borrowerName}</strong><br>
+                        <small>${loan.borrowerClass}</small>
+                    </td>
+                    <td>
+                        ${itemsText}
+                        <small>Kategori: ${getCategoryName(loan.itemCategory)}</small>
+                    </td>
+                    <td>
+                        ${loanDateFormatted} <br>
+                        <small>Kembali: ${returnDateFormatted}</small>
+                    </td>
+                    <td>${statusBadge}</td>
+                    <td>${actionButtons}</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        function updateStats() {
+            const activeLoans = loans.filter(loan => calculateLoanStatus(loan) === 'dipinjam').length;
+            const returnedLoans = loans.filter(loan => calculateLoanStatus(loan) === 'dikembalikan').length;
+            const lateLoans = loans.filter(loan => calculateLoanStatus(loan) === 'terlambat').length;
+            
+            document.getElementById('active-loans').textContent = activeLoans;
+            document.getElementById('returned-loans').textContent = returnedLoans;
+            document.getElementById('late-loans').textContent = lateLoans;
+        }
+
+        function updateClassRanking() {
+            const classRanking = document.getElementById('classRanking');
+            const classCounts = {};
+            
+            loans.forEach(loan => {
+                if (!classCounts[loan.borrowerClass]) {
+                    classCounts[loan.borrowerClass] = 0;
+                }
+                classCounts[loan.borrowerClass]++;
+            });
+            
+            const sortedClasses = Object.entries(classCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5);
+            
+            let html = '';
+            if (sortedClasses.length === 0) {
+                html = '<p>Belum ada data peminjaman.</p>';
+            } else {
+                sortedClasses.forEach(([className, count], index) => {
+                    html += `
+                        <div class="class-rank-item">
+                            <div class="rank-number">${index + 1}</div>
+                            <div class="class-name">${className}</div>
+                            <div class="loan-count">${count} peminjaman</div>
+                        </div>
+                    `;
+                });
+            }
+            
+            classRanking.innerHTML = html;
+        }
+
+        function updateExtracurricularStats() {
+            const extracurricularStats = document.getElementById('extracurricularStats');
+            const eskulCounts = {};
+            
+            loans.forEach(loan => {
+                if (loan.extracurricular) {
+                    if (!eskulCounts[loan.extracurricular]) {
+                        eskulCounts[loan.extracurricular] = 0;
+                    }
+                    eskulCounts[loan.extracurricular]++;
+                }
+            });
+            
+            let html = '';
+            if (Object.keys(eskulCounts).length === 0) {
+                html = '<p>Belum ada peminjaman untuk ekstrakurikuler.</p>';
+            } else {
+                const sortedEskul = Object.entries(eskulCounts)
+                    .sort((a, b) => b[1] - a[1]);
+                
+                sortedEskul.forEach(([eskulName, count]) => {
+                    html += `
+                        <div class="extracurricular-item">
+                            <span>${eskulName}</span>
+                            <span class="loan-count">${count} peminjaman</span>
+                        </div>
+                    `;
+                });
+            }
+            
+            extracurricularStats.innerHTML = html;
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return '-';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+        }
+
+        function formatDateForInput(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function getCategoryName(category) {
+            const categories = {
+                'elektronik': 'Elektronik',
+                'olahraga': 'Olahraga',
+                'kesenian': 'Kesenian',
+                'laboratorium': 'Laboratorium',
+                'lainnya': 'Lainnya'
+            };
+            return categories[category] || 'Lainnya';
+        }
+
+        function getStatusText(status) {
+            const statusMap = {
+                'dipinjam': 'Sedang Dipinjam',
+                'dikembalikan': 'Telah Dikembalikan',
+                'terlambat': 'Terlambat'
+            };
+            return statusMap[status] || 'Tidak Diketahui';
+        }
+
+        function showReturnModal(loanId) {
+            currentLoanId = loanId;
+            const loan = loans.find(l => l.id === loanId);
+            
+            if (loan) {
+                let itemsText = '<ul>';
+                loan.items.forEach(item => {
+                    itemsText += `<li>${item.name} (${item.quantity})</li>`;
+                });
+                itemsText += '</ul>';
+                
+                document.getElementById('modalDetails').innerHTML = `
+                    <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <p><strong>Nama:</strong> ${loan.borrowerName}</p>
+                        <p><strong>Barang:</strong> ${itemsText}</p>
+                        <p><strong>Tanggal Pinjam:</strong> ${formatDate(loan.loanDate)}</p>
+                        <p><strong>Jatuh Tempo:</strong> ${formatDate(loan.returnDate)}</p>
+                    </div>
+                `;
+                
+                document.getElementById('returnModal').style.display = 'flex';
+            }
+        }
+
+        function confirmReturn() {
+            if (currentLoanId) {
+                const loanIndex = loans.findIndex(loan => loan.id === currentLoanId);
+                
+                if (loanIndex !== -1) {
+                    const loan = loans[loanIndex];
+                    
+                    // Kembalikan stok barang
+                    loan.items.forEach(item => {
+                        updateStock(item.name, item.quantity, 'return');
+                    });
+                    
+                    // Update status peminjaman
+                    loans[loanIndex].status = 'dikembalikan';
+                    loans[loanIndex].returnActualDate = formatDateForInput(new Date());
+                    
+                    // Update tampilan
+                    updateStockDisplay();
+                    updateLoanTable();
+                    updateStats();
+                    updateClassRanking();
+                    updateExtracurricularStats();
+                    
+                    document.getElementById('returnModal').style.display = 'none';
+                    
+                    alert('Barang berhasil ditandai sebagai dikembalikan! Stok telah diperbarui.');
+                }
+            }
+        }
+
+        function showDeleteModal(loanId) {
+            currentLoanId = loanId;
+            const loan = loans.find(l => l.id === loanId);
+            
+            if (loan) {
+                let itemsText = '';
+                loan.items.forEach(item => {
+                    itemsText += `${item.name} (${item.quantity}), `;
+                });
+                
+                document.getElementById('deleteModalDetails').innerHTML = `
+                    <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <p><strong>Nama:</strong> ${loan.borrowerName}</p>
+                        <p><strong>Barang:</strong> ${itemsText}</p>
+                        <p><strong>Status:</strong> ${getStatusText(calculateLoanStatus(loan))}</p>
+                    </div>
+                `;
+                
+                document.getElementById('deleteModal').style.display = 'flex';
+            }
+        }
+
+        function confirmDelete() {
+            if (currentLoanId) {
+                const loanIndex = loans.findIndex(loan => loan.id === currentLoanId);
+                
+                if (loanIndex !== -1) {
+                    const loan = loans[loanIndex];
+                    
+                    // Jika belum dikembalikan, kembalikan stok
+                    if (loan.status !== 'dikembalikan' && !loan.returnActualDate) {
+                        loan.items.forEach(item => {
+                            updateStock(item.name, item.quantity, 'return');
+                        });
+                    }
+                    
+                    // Hapus dari array
+                    loans = loans.filter(loan => loan.id !== currentLoanId);
+                    
+                    // Update tampilan
+                    updateStockDisplay();
+                    updateLoanTable();
+                    updateStats();
+                    updateClassRanking();
+                    updateExtracurricularStats();
+                    
+                    document.getElementById('deleteModal').style.display = 'none';
+                    
+                    alert('Data peminjaman berhasil dihapus!');
+                }
+            }
+        }
+
+        function exportData() {
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "ID,Nama Peminjam,Kelas,Ekstrakurikuler,Barang,Kategori,Tanggal Pinjam,Tanggal Kembali,Status,Tujuan\n";
+            
+            loans.forEach(loan => {
+                const itemsText = loan.items.map(item => `${item.name} (${item.quantity})`).join('; ');
+                const status = calculateLoanStatus(loan);
+                
+                const row = [
+                    loan.id,
+                    `"${loan.borrowerName}"`,
+                    loan.borrowerClass,
+                    loan.extracurricular || '-',
+                    `"${itemsText}"`,
+                    getCategoryName(loan.itemCategory),
+                    formatDate(loan.loanDate),
+                    formatDate(loan.returnDate),
+                    getStatusText(status),
+                    `"${loan.loanPurpose}"`
+                ].join(",");
+                
+                csvContent += row + "\n";
+            });
+            
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "data_peminjaman_barang_sman1tarakan.csv");
+            document.body.appendChild(link);
+            
+            link.click();
+            document.body.removeChild(link);
+            
+            alert('Data berhasil diexport! File akan otomatis terunduh.');
+        }
+
+        function updateDateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('id-ID');
+            document.getElementById('system-time').textContent = timeString;
+            
+            setTimeout(updateDateTime, 1000);
+        }
+
+        function setRealTimeClock() {
+            const updateHeaderTime = () => {
+                const now = new Date();
+                const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const dateString = now.toLocaleDateString('id-ID', dateOptions);
+                const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+                
+                document.getElementById('header-date-time').textContent = `${dateString} ${timeString}`;
+            };
+            
+            updateHeaderTime();
+            setInterval(updateHeaderTime, 60000);
+        }
+
+        function addSampleData() {
+            const today = new Date();
+            const yesterday = new Date();
+            yesterday.setDate(today.getDate() - 1);
+            const lastWeek = new Date();
+            lastWeek.setDate(today.getDate() - 7);
+            const tomorrow = new Date();
+            tomorrow.setDate(today.getDate() + 1);
+            const nextWeek = new Date();
+            nextWeek.setDate(today.getDate() + 7);
+            
+            // Kurangi stok untuk data contoh
+            updateStock("Proyektor LCD", 1, 'borrow');
+            updateStock("Kabel HDMI", 1, 'borrow');
+            updateStock("Bola Basket", 2, 'borrow');
+            updateStock("Bola Voli", 1, 'borrow');
+            updateStock("Mikroskop", 1, 'borrow');
+            updateStock("Preparat", 5, 'borrow');
+            
+            const sampleData = [
+                {
+                    id: 1,
+                    borrowerName: "Ahmad Fauzi",
+                    borrowerClass: "XII-A",
+                    extracurricular: "Basket",
+                    items: [
+                        { name: "Proyektor LCD", quantity: 1, description: "Merk Epson" },
+                        { name: "Kabel HDMI", quantity: 1, description: "Panjang 3 meter" }
+                    ],
+                    itemCategory: "elektronik",
+                    loanDate: formatDateForInput(lastWeek),
+                    returnDate: formatDateForInput(yesterday),
+                    returnActualDate: "",
+                    loanPurpose: "Presentasi mata pelajaran Kimia",
+                    status: "terlambat"
+                },
+                {
+                    id: 2,
+                    borrowerName: "Siti Rahma",
+                    borrowerClass: "XI-C",
+                    extracurricular: "Voli",
+                    items: [
+                        { name: "Bola Voli", quantity: 1, description: "Ukuran standar" },
+                        { name: "Jaring Voli", quantity: 1, description: "" }
+                    ],
+                    itemCategory: "olahraga",
+                    loanDate: formatDateForInput(today),
+                    returnDate: formatDateForInput(tomorrow),
+                    returnActualDate: "",
+                    loanPurpose: "Latihan ekstrakurikuler bola voli",
+                    status: "dipinjam"
+                },
+                {
+                    id: 3,
+                    borrowerName: "Budi Santoso",
+                    borrowerClass: "X-E",
+                    extracurricular: "KIR",
+                    items: [
+                        { name: "Mikroskop", quantity: 1, description: "Binokuler" },
+                        { name: "Preparat", quantity: 5, description: "Berbagai jenis jaringan" }
+                    ],
+                    itemCategory: "laboratorium",
+                    loanDate: formatDateForInput(yesterday),
+                    returnDate: formatDateForInput(today),
+                    returnActualDate: formatDateForInput(today),
+                    loanPurpose: "Praktikum Biologi",
+                    status: "dikembalikan"
+                },
+                {
+                    id: 4,
+                    borrowerName: "Rina Amelia",
+                    borrowerClass: "X-A",
+                    extracurricular: "Seni Rupa",
+                    items: [
+                        { name: "Alat Lukis", quantity: 5, description: "Cat air dan kuas" },
+                        { name: "Kanvas", quantity: 3, description: "Ukuran 30x40 cm" }
+                    ],
+                    itemCategory: "kesenian",
+                    loanDate: formatDateForInput(tomorrow),
+                    returnDate: formatDateForInput(nextWeek),
+                    returnActualDate: "",
+                    loanPurpose: "Ekstrakurikuler seni rupa",
+                    status: "dipinjam"
+                }
+            ];
+            
+            loans = sampleData;
+            updateStockDisplay();
+            updateLoanTable();
+            updateStats();
+            updateClassRanking();
+            updateExtracurricularStats();
+        }
+    </script>
+</body>
+</html>
